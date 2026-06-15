@@ -13,3 +13,45 @@
 2026-06-14 22:02:59 - INFO - ==================================================
 2026-06-14 22:02:59 - INFO - Report saved to: output/report_20260614_220259.txt
 2026-06-14 22:02:59 - INFO - Processing complete!
+2026-06-14 22:06:43 - INFO - Logging initialized
+2026-06-14 22:06:43 - INFO - Log file: logs/processor_20260614.log
+2026-06-14 22:06:43 - INFO - Scanning folder: input
+2026-06-14 22:06:43 - INFO - Processing EDI file: orders.edi
+2026-06-14 22:06:43 - INFO - ==================================================
+2026-06-14 22:06:43 - INFO -   FILE     : orders.edi
+2026-06-14 22:06:43 - INFO -   SENDER   : CATERPILLAR
+2026-06-14 22:06:43 - INFO -   RECEIVER : TRUISTBANK
+2026-06-14 22:06:43 - INFO -   TYPE     : 850
+2026-06-14 22:06:43 - INFO -   PO NUM   : PO-12345
+2026-06-14 22:06:43 - INFO -   ITEMS    : 1
+2026-06-14 22:06:43 - INFO -   Qty: 100 EA @ $25.00
+2026-06-14 22:06:43 - INFO - ==================================================
+2026-06-14 22:06:43 - INFO - ==================================================
+2026-06-14 22:06:43 - INFO -   PROCESSED : 1 files
+2026-06-14 22:06:43 - INFO -   SKIPPED   : 0 files
+2026-06-14 22:06:43 - INFO -   ERRORS    : 0 files
+2026-06-14 22:06:43 - INFO -   REPORT    : output/report_20260614_220643.txt
+2026-06-14 22:06:43 - INFO - ==================================================
+2026-06-14 22:06:43 - INFO - Processing complete!
+2026-06-14 22:07:38 - INFO - Logging initialized
+2026-06-14 22:07:38 - INFO - Log file: logs/processor_20260614.log
+2026-06-14 22:07:38 - INFO - Scanning folder: input
+2026-06-14 22:07:38 - INFO - Processing EDI file: broken_file.edi
+2026-06-14 22:07:38 - ERROR - EDI validation error: Missing ISA sender in EDI file
+2026-06-14 22:07:38 - INFO - Processing EDI file: orders.edi
+2026-06-14 22:07:38 - INFO - ==================================================
+2026-06-14 22:07:38 - INFO -   FILE     : orders.edi
+2026-06-14 22:07:38 - INFO -   SENDER   : CATERPILLAR
+2026-06-14 22:07:38 - INFO -   RECEIVER : TRUISTBANK
+2026-06-14 22:07:38 - INFO -   TYPE     : 850
+2026-06-14 22:07:38 - INFO -   PO NUM   : PO-12345
+2026-06-14 22:07:38 - INFO -   ITEMS    : 1
+2026-06-14 22:07:38 - INFO -   Qty: 100 EA @ $25.00
+2026-06-14 22:07:38 - INFO - ==================================================
+2026-06-14 22:07:38 - INFO - ==================================================
+2026-06-14 22:07:38 - INFO -   PROCESSED : 1 files
+2026-06-14 22:07:38 - INFO -   SKIPPED   : 0 files
+2026-06-14 22:07:38 - INFO -   ERRORS    : 1 files
+2026-06-14 22:07:38 - INFO -   REPORT    : output/report_20260614_220738.txt
+2026-06-14 22:07:38 - INFO - ==================================================
+2026-06-14 22:07:38 - INFO - Processing complete!
