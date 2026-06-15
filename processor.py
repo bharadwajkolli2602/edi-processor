@@ -1,16 +1,19 @@
 # ============================================
 # EDI File Processor
-# Phase 4: Error Handling
+# Phase 5: API Notifications
 # ============================================
 
 import os
 import logging
+import requests
 from datetime import datetime
+
+# ── Webhook Config ────────────────────────
+WEBHOOK_URL = "https://webhook.site/7e966afc-6c5b-4ed7-b26f-1b434bc23a73"
 
 # ── Logging Setup ─────────────────────────
 def setup_logging():
     log_filename = f"logs/processor_{datetime.now().strftime('%Y%m%d')}.log"
-
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s",
@@ -49,7 +52,6 @@ def read_file(filepath):
 def parse_edi(content):
     try:
         segments = content.strip().split("\n")
-
         result = {
             "sender": "",
             "receiver": "",
@@ -57,21 +59,16 @@ def parse_edi(content):
             "po_number": "",
             "line_items": []
         }
-
         for segment in segments:
             elements = segment.split("*")
             tag = elements[0]
-
             if tag == "ISA":
                 result["sender"]   = elements[6].strip()
                 result["receiver"] = elements[8].strip()
-
             elif tag == "ST":
                 result["transaction_type"] = elements[1]
-
             elif tag == "BEG":
                 result["po_number"] = elements[3]
-
             elif tag == "PO1":
                 item = {
                     "quantity": elements[2],
@@ -80,7 +77,6 @@ def parse_edi(content):
                 }
                 result["line_items"].append(item)
 
-        # Validate required fields
         if not result["sender"]:
             raise ValueError("Missing ISA sender in EDI file")
         if not result["transaction_type"]:
@@ -130,10 +126,41 @@ def write_report(filename, parsed, report_file):
     except Exception as e:
         logging.error(f"Failed to write report: {e}")
 
-# ── 7. Main processor ─────────────────────
-def process_folder(folder):
+# ── 7. Send notification ──────────────────
+def send_notification(processed, skipped, errors, report_file):
+    try:
+        payload = {
+            "summary":   "EDI Processing Complete",
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "results": {
+                "processed": processed,
+                "skipped":   skipped,
+                "errors":    errors,
+                "report":    report_file
+            },
+            "status": "SUCCESS" if errors == 0 else "COMPLETED WITH ERRORS"
+        }
+        response = requests.post(
+            WEBHOOK_URL,
+            json=payload,
+            timeout=10
+        )
+        logging.info(f"Response status  : {response.status_code}")
+        logging.info(f"Response message : {response.text[:100]}")
+        if response.status_code == 200:
+            logging.info("Notification sent successfully!")
+        else:
+            logging.warning(f"Notification failed: {response.status_code}")
 
-    # Check if folder exists
+    except requests.exceptions.ConnectionError:
+        logging.error("Could not connect to webhook URL!")
+    except requests.exceptions.Timeout:
+        logging.error("Webhook request timed out!")
+    except Exception as e:
+        logging.error(f"Notification error: {e}")
+
+# ── 8. Main processor ─────────────────────
+def process_folder(folder):
     if not os.path.exists(folder):
         logging.error(f"Folder not found: {folder}")
         return
@@ -148,16 +175,14 @@ def process_folder(folder):
         f.write(f"Generated : {timestamp}\n")
         f.write(f"Folder    : {folder}\n\n")
 
-    files = os.listdir(folder)
+    files     = os.listdir(folder)
+    processed = 0
+    skipped   = 0
+    errors    = 0
 
     if len(files) == 0:
         logging.warning("No files found in folder!")
         return
-
-    # Track stats
-    processed = 0
-    skipped   = 0
-    errors    = 0
 
     for filename in files:
         filepath  = os.path.join(folder, filename)
@@ -166,26 +191,20 @@ def process_folder(folder):
         if file_type == "EDI":
             logging.info(f"Processing EDI file: {filename}")
             content = read_file(filepath)
-
             if content is None:
                 errors += 1
                 continue
-
             parsed = parse_edi(content)
-
             if parsed is None:
                 errors += 1
                 continue
-
             print_summary(filename, parsed)
             write_report(filename, parsed, report_file)
             processed += 1
-
         else:
             logging.warning(f"Skipping unknown file: {filename}")
             skipped += 1
 
-    # Final summary
     logging.info("=" * 50)
     logging.info(f"  PROCESSED : {processed} files")
     logging.info(f"  SKIPPED   : {skipped} files")
@@ -193,6 +212,9 @@ def process_folder(folder):
     logging.info(f"  REPORT    : {report_file}")
     logging.info("=" * 50)
     logging.info("Processing complete!")
+
+    # Send notification
+    send_notification(processed, skipped, errors, report_file)
 
 # ── Run it! ───────────────────────────────
 setup_logging()

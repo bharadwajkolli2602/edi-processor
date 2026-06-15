@@ -1,0 +1,14 @@
+EDI PROCESSING REPORT
+Generated : 2026-06-14 22:30:52
+Folder    : input
+
+==================================================
+  FILE     : orders.edi
+  SENDER   : CATERPILLAR
+  RECEIVER : TRUISTBANK
+  TYPE     : 850
+  PO NUM   : PO-12345
+  ITEMS    : 1
+  Qty: 100 EA @ $25.00
+==================================================
+

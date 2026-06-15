@@ -55,3 +55,120 @@
 2026-06-14 22:07:38 - INFO -   REPORT    : output/report_20260614_220738.txt
 2026-06-14 22:07:38 - INFO - ==================================================
 2026-06-14 22:07:38 - INFO - Processing complete!
+2026-06-14 22:15:41 - INFO - Logging initialized
+2026-06-14 22:15:41 - INFO - Log file: logs/processor_20260614.log
+2026-06-14 22:15:41 - INFO - Scanning folder: input
+2026-06-14 22:15:41 - INFO - Processing EDI file: broken_file.edi
+2026-06-14 22:15:41 - ERROR - EDI validation error: Missing ISA sender in EDI file
+2026-06-14 22:15:41 - INFO - Processing EDI file: orders.edi
+2026-06-14 22:15:41 - INFO - ==================================================
+2026-06-14 22:15:41 - INFO -   FILE     : orders.edi
+2026-06-14 22:15:41 - INFO -   SENDER   : CATERPILLAR
+2026-06-14 22:15:41 - INFO -   RECEIVER : TRUISTBANK
+2026-06-14 22:15:41 - INFO -   TYPE     : 850
+2026-06-14 22:15:41 - INFO -   PO NUM   : PO-12345
+2026-06-14 22:15:41 - INFO -   ITEMS    : 1
+2026-06-14 22:15:41 - INFO -   Qty: 100 EA @ $25.00
+2026-06-14 22:15:41 - INFO - ==================================================
+2026-06-14 22:15:41 - INFO - ==================================================
+2026-06-14 22:15:41 - INFO -   PROCESSED : 1 files
+2026-06-14 22:15:41 - INFO -   SKIPPED   : 0 files
+2026-06-14 22:15:41 - INFO -   ERRORS    : 1 files
+2026-06-14 22:15:41 - INFO -   REPORT    : output/report_20260614_221541.txt
+2026-06-14 22:15:41 - INFO - ==================================================
+2026-06-14 22:15:41 - INFO - Processing complete!
+2026-06-14 22:15:42 - INFO - Notification sent successfully!
+2026-06-14 22:17:32 - INFO - Logging initialized
+2026-06-14 22:17:32 - INFO - Log file: logs/processor_20260614.log
+2026-06-14 22:17:32 - INFO - Scanning folder: input
+2026-06-14 22:17:32 - INFO - Processing EDI file: broken_file.edi
+2026-06-14 22:17:32 - ERROR - EDI validation error: Missing ISA sender in EDI file
+2026-06-14 22:17:32 - INFO - Processing EDI file: orders.edi
+2026-06-14 22:17:32 - INFO - ==================================================
+2026-06-14 22:17:32 - INFO -   FILE     : orders.edi
+2026-06-14 22:17:32 - INFO -   SENDER   : CATERPILLAR
+2026-06-14 22:17:32 - INFO -   RECEIVER : TRUISTBANK
+2026-06-14 22:17:32 - INFO -   TYPE     : 850
+2026-06-14 22:17:32 - INFO -   PO NUM   : PO-12345
+2026-06-14 22:17:32 - INFO -   ITEMS    : 1
+2026-06-14 22:17:32 - INFO -   Qty: 100 EA @ $25.00
+2026-06-14 22:17:32 - INFO - ==================================================
+2026-06-14 22:17:32 - INFO - ==================================================
+2026-06-14 22:17:32 - INFO -   PROCESSED : 1 files
+2026-06-14 22:17:32 - INFO -   SKIPPED   : 0 files
+2026-06-14 22:17:32 - INFO -   ERRORS    : 1 files
+2026-06-14 22:17:32 - INFO -   REPORT    : output/report_20260614_221732.txt
+2026-06-14 22:17:32 - INFO - ==================================================
+2026-06-14 22:17:32 - INFO - Processing complete!
+2026-06-14 22:17:33 - INFO - Notification sent successfully!
+2026-06-14 22:18:42 - INFO - Logging initialized
+2026-06-14 22:18:42 - INFO - Log file: logs/processor_20260614.log
+2026-06-14 22:18:42 - INFO - Scanning folder: input
+2026-06-14 22:18:42 - INFO - Processing EDI file: broken_file.edi
+2026-06-14 22:18:42 - ERROR - EDI validation error: Missing ISA sender in EDI file
+2026-06-14 22:18:42 - INFO - Processing EDI file: orders.edi
+2026-06-14 22:18:42 - INFO - ==================================================
+2026-06-14 22:18:42 - INFO -   FILE     : orders.edi
+2026-06-14 22:18:42 - INFO -   SENDER   : CATERPILLAR
+2026-06-14 22:18:42 - INFO -   RECEIVER : TRUISTBANK
+2026-06-14 22:18:42 - INFO -   TYPE     : 850
+2026-06-14 22:18:42 - INFO -   PO NUM   : PO-12345
+2026-06-14 22:18:42 - INFO -   ITEMS    : 1
+2026-06-14 22:18:42 - INFO -   Qty: 100 EA @ $25.00
+2026-06-14 22:18:42 - INFO - ==================================================
+2026-06-14 22:18:42 - INFO - ==================================================
+2026-06-14 22:18:42 - INFO -   PROCESSED : 1 files
+2026-06-14 22:18:42 - INFO -   SKIPPED   : 0 files
+2026-06-14 22:18:42 - INFO -   ERRORS    : 1 files
+2026-06-14 22:18:42 - INFO -   REPORT    : output/report_20260614_221842.txt
+2026-06-14 22:18:42 - INFO - ==================================================
+2026-06-14 22:18:42 - INFO - Processing complete!
+2026-06-14 22:18:42 - INFO - Notification sent successfully!
+2026-06-14 22:20:41 - INFO - Logging initialized
+2026-06-14 22:20:41 - INFO - Log file: logs/processor_20260614.log
+2026-06-14 22:20:41 - INFO - Scanning folder: input
+2026-06-14 22:20:41 - INFO - Processing EDI file: broken_file.edi
+2026-06-14 22:20:41 - ERROR - EDI validation error: Missing ISA sender in EDI file
+2026-06-14 22:20:41 - INFO - Processing EDI file: orders.edi
+2026-06-14 22:20:41 - INFO - ==================================================
+2026-06-14 22:20:41 - INFO -   FILE     : orders.edi
+2026-06-14 22:20:41 - INFO -   SENDER   : CATERPILLAR
+2026-06-14 22:20:41 - INFO -   RECEIVER : TRUISTBANK
+2026-06-14 22:20:41 - INFO -   TYPE     : 850
+2026-06-14 22:20:41 - INFO -   PO NUM   : PO-12345
+2026-06-14 22:20:41 - INFO -   ITEMS    : 1
+2026-06-14 22:20:41 - INFO -   Qty: 100 EA @ $25.00
+2026-06-14 22:20:41 - INFO - ==================================================
+2026-06-14 22:20:41 - INFO - ==================================================
+2026-06-14 22:20:41 - INFO -   PROCESSED : 1 files
+2026-06-14 22:20:41 - INFO -   SKIPPED   : 0 files
+2026-06-14 22:20:41 - INFO -   ERRORS    : 1 files
+2026-06-14 22:20:41 - INFO -   REPORT    : output/report_20260614_222041.txt
+2026-06-14 22:20:41 - INFO - ==================================================
+2026-06-14 22:20:41 - INFO - Processing complete!
+2026-06-14 22:20:42 - INFO - Notification sent successfully!
+2026-06-14 22:30:52 - INFO - Logging initialized
+2026-06-14 22:30:52 - INFO - Log file: logs/processor_20260614.log
+2026-06-14 22:30:52 - INFO - Scanning folder: input
+2026-06-14 22:30:52 - INFO - Processing EDI file: broken_file.edi
+2026-06-14 22:30:52 - ERROR - EDI validation error: Missing ISA sender in EDI file
+2026-06-14 22:30:52 - INFO - Processing EDI file: orders.edi
+2026-06-14 22:30:52 - INFO - ==================================================
+2026-06-14 22:30:52 - INFO -   FILE     : orders.edi
+2026-06-14 22:30:52 - INFO -   SENDER   : CATERPILLAR
+2026-06-14 22:30:52 - INFO -   RECEIVER : TRUISTBANK
+2026-06-14 22:30:52 - INFO -   TYPE     : 850
+2026-06-14 22:30:52 - INFO -   PO NUM   : PO-12345
+2026-06-14 22:30:52 - INFO -   ITEMS    : 1
+2026-06-14 22:30:52 - INFO -   Qty: 100 EA @ $25.00
+2026-06-14 22:30:52 - INFO - ==================================================
+2026-06-14 22:30:52 - INFO - ==================================================
+2026-06-14 22:30:52 - INFO -   PROCESSED : 1 files
+2026-06-14 22:30:52 - INFO -   SKIPPED   : 0 files
+2026-06-14 22:30:52 - INFO -   ERRORS    : 1 files
+2026-06-14 22:30:52 - INFO -   REPORT    : output/report_20260614_223052.txt
+2026-06-14 22:30:52 - INFO - ==================================================
+2026-06-14 22:30:52 - INFO - Processing complete!
+2026-06-14 22:30:53 - INFO - Response status  : 200
+2026-06-14 22:30:53 - INFO - Response message : This URL has no default content configured. <a href="https://webhook.site/#!/edit/7e966afc-6c5b-4ed7
+2026-06-14 22:30:53 - INFO - Notification sent successfully!
