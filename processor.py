@@ -1,11 +1,30 @@
 # ============================================
 # EDI File Processor
-# Phase 2: Read, Parse & Write Reports
+# Phase 3: Professional Logging
 # ============================================
 
 import os
+import logging
 from datetime import datetime
 
+# ── Logging Setup ─────────────────────────
+def setup_logging():
+    log_filename = f"logs/processor_{datetime.now().strftime('%Y%m%d')}.log"
+    
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        handlers=[
+            logging.FileHandler(log_filename, encoding="utf-8"),
+            logging.StreamHandler()
+        ]
+    )
+    logging.info("Logging initialized")
+    logging.info(f"Log file: {log_filename}")
+
+
+# ── EDI File Processor ───────────────────
 # ── 1. Get file type ──────────────────────
 def get_file_type(filename):
     if filename.endswith(".edi"):
@@ -59,16 +78,16 @@ def parse_edi(content):
 
 # ── 4. Print summary to screen ────────────
 def print_summary(filename, parsed):
-    print("=" * 50)
-    print(f"  FILE     : {filename}")
-    print(f"  SENDER   : {parsed['sender']}")
-    print(f"  RECEIVER : {parsed['receiver']}")
-    print(f"  TYPE     : {parsed['transaction_type']}")
-    print(f"  PO NUM   : {parsed['po_number']}")
-    print(f"  ITEMS    : {len(parsed['line_items'])}")
+    logging.info("=" * 50)
+    logging.info(f"  FILE     : {filename}")
+    logging.info(f"  SENDER   : {parsed['sender']}")
+    logging.info(f"  RECEIVER : {parsed['receiver']}")
+    logging.info(f"  TYPE     : {parsed['transaction_type']}")
+    logging.info(f"  PO NUM   : {parsed['po_number']}")
+    logging.info(f"  ITEMS    : {len(parsed['line_items'])}")
     for item in parsed["line_items"]:
-        print(f"    → Qty: {item['quantity']} {item['unit']} @ ${item['price']}")
-    print("=" * 50)
+        logging.info(f"  Qty: {item['quantity']} {item['unit']} @ ${item['price']}")
+    logging.info("=" * 50)
 
 # ── 5. Generate report filename ───────────
 def get_report_filename():
@@ -86,18 +105,16 @@ def write_report(filename, parsed, report_file):
         f.write(f"  PO NUM   : {parsed['po_number']}\n")
         f.write(f"  ITEMS    : {len(parsed['line_items'])}\n")
         for item in parsed["line_items"]:
-            f.write(f"    → Qty: {item['quantity']} {item['unit']} @ ${item['price']}\n")
+            f.write(f"  Qty: {item['quantity']} {item['unit']} @ ${item['price']}\n")
         f.write("=" * 50 + "\n\n")
 
 # ── 7. Main processor ─────────────────────
 def process_folder(folder):
-    print(f"\n[START] Scanning folder: {folder}\n")
+    logging.info(f"Scanning folder: {folder}")
 
-    # Create report file with timestamp
     report_file = get_report_filename()
     timestamp   = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # Write report header
     with open(report_file, "w", encoding="utf-8") as f:
         f.write("EDI PROCESSING REPORT\n")
         f.write(f"Generated : {timestamp}\n")
@@ -106,25 +123,25 @@ def process_folder(folder):
     files = os.listdir(folder)
 
     if len(files) == 0:
-        print("[WARN] No files found!")
+        logging.warning("No files found in folder!")
         return
 
     for filename in files:
         filepath  = os.path.join(folder, filename)
         file_type = get_file_type(filename)
 
-        print(f"[LOG] Found {file_type} file: {filename}")
-
         if file_type == "EDI":
+            logging.info(f"Processing EDI file: {filename}")
             content = read_file(filepath)
             parsed  = parse_edi(content)
             print_summary(filename, parsed)
             write_report(filename, parsed, report_file)
         else:
-            print(f"[SKIP] Skipping {filename}")
+            logging.warning(f"Skipping unknown file: {filename}")
 
-    print(f"\n[DONE] Report saved to: {report_file}")
-    print("[DONE] Processing complete!")
+    logging.info(f"Report saved to: {report_file}")
+    logging.info("Processing complete!")
 
 # ── Run it! ───────────────────────────────
+setup_logging()
 process_folder("input")
