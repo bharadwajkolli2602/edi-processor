@@ -1,27 +1,27 @@
-# EDI Gate — Retail EDI Validation Portal
+# EDI Gate
 
-> A real-time EDI pre-validation gateway built in Python — 
-> catches errors before files reach Sterling File Gateway.
+> A real-time EDI pre-validation portal that catches errors before files reach Sterling File Gateway.
 
 ---
 
 ## The Problem It Solves
 
-Suppliers send EDI files to retailers like Walmart and wait **hours** to find out if their file was rejected. This portal gives them **instant validation** — before the file ever enters the EDI pipeline.
+Trading partners upload EDI files and wait **hours** to find out if their file was rejected.  
+**EDI Gate** eliminates that wait — instant validation, instant feedback, instant routing.
 
 ---
 
-## What It Does
+## How It Works
 
-Upload an EDI file → get results in seconds.
+Upload an EDI file → results in seconds.
 
 | Step | What Happens |
 |------|-------------|
-| 🔍 **Detect** | Reads the ST segment, identifies transaction type automatically |
-| ✅ **Validate** | Checks all mandatory segments against Walmart X12 004010 spec |
+| 🔍 **Detect**    | Reads the ST segment, identifies transaction type automatically |
+| ✅ **Validate**  | Checks all mandatory segments against X12 EDI 004010 standards |
 | 📄 **Transform** | Converts raw EDI → structured XML for downstream systems |
-| 📨 **Acknowledge** | Generates a 997 FA — accepted or rejected with error details |
-| 📬 **Submit** | Routes valid files to the trading partner's SFG mailbox |
+| 📨 **Acknowledge** | Generates a 997 FA — accepted or rejected with exact error details |
+| 📬 **Route**     | Submits valid files to the trading partner's SFG mailbox |
 
 ---
 
@@ -29,25 +29,25 @@ Upload an EDI file → get results in seconds.
 
 | Code | Transaction | Direction |
 |------|-------------|-----------|
-| 850 | Purchase Order | Walmart → Supplier |
-| 810 | Invoice | Supplier → Walmart |
-| 856 | Ship Notice / ASN | Supplier → Walmart |
-| 830 | Planning Schedule | Walmart → Supplier |
+| 850  | Purchase Order    | Retailer → Supplier |
+| 810  | Invoice           | Supplier → Retailer |
+| 856  | Ship Notice / ASN | Supplier → Retailer |
+| 830  | Planning Schedule | Retailer → Supplier |
 
 ---
 
 ## Demo
 
-**Valid file** — instant summary, XML download, 997 FA, one-click SFG submission
+**Valid file** → summary, XML download, 997 FA, one-click SFG routing
 
-**Invalid file** — exact errors listed by segment, rejected 997 FA generated
-Missing mandatory segment: BEG (required by Walmart 850 spec)
+**Invalid file** → exact errors listed by segment, rejected 997 FA generated
+Missing mandatory segment: BEG (required by X12 850 spec)
 
-Missing mandatory segment: DTM (required by Walmart 850 spec)
+Missing mandatory segment: DTM (required by X12 850 spec)
 
-Missing mandatory segment: N1  (required by Walmart 850 spec)
+Missing mandatory segment: N1  (required by X12 850 spec)
 
-Missing mandatory segment: CTT (required by Walmart 850 spec)
+Missing mandatory segment: CTT (required by X12 850 spec)
 
 ---
 
@@ -73,17 +73,17 @@ Open `http://localhost:5000`
 ## Project Structure
 edi/
 
-├── detector.py       identify transaction type
+├── detector.py       identify transaction type from ST segment
 
-├── validator.py      Walmart spec validation
+├── validator.py      X12 mandatory segment and field validation
 
-├── parser.py         extract business data
+├── parser.py         extract business data per transaction type
 
-├── xml_builder.py    EDI → XML
+├── xml_builder.py    EDI → XML transformation
 
-├── acknowledger.py   generate 997 FA
+├── acknowledger.py   generate 997 Functional Acknowledgment
 
-└── mailbox.py        SFG mailbox submission
+└── mailbox.py        route files to SFG mailbox
 
 ---
 

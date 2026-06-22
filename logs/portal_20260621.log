@@ -27,3 +27,71 @@
 2026-06-21 22:09:47,597 - INFO - 127.0.0.1 - - [21/Jun/2026 22:09:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
 2026-06-21 22:12:40,240 - INFO -  * Detected change in 'C:\\Users\\kbhar\\edi-processor\\config.py', reloading
 2026-06-21 22:12:40,382 - INFO -  * Restarting with stat
+2026-06-21 22:15:45,973 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-21 22:15:45,973 - INFO - [33mPress CTRL+C to quit[0m
+2026-06-21 22:15:45,976 - INFO -  * Restarting with stat
+2026-06-21 22:15:46,833 - WARNING -  * Debugger is active!
+2026-06-21 22:15:46,856 - INFO -  * Debugger PIN: 458-672-390
+2026-06-21 22:15:52,420 - INFO - 127.0.0.1 - - [21/Jun/2026 22:15:52] "GET / HTTP/1.1" 200 -
+2026-06-21 22:15:52,483 - INFO - 127.0.0.1 - - [21/Jun/2026 22:15:52] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:15:53,809 - INFO - 127.0.0.1 - - [21/Jun/2026 22:15:53] "GET / HTTP/1.1" 200 -
+2026-06-21 22:15:54,125 - INFO - 127.0.0.1 - - [21/Jun/2026 22:15:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:17:45,682 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-21 22:17:45,682 - INFO - [33mPress CTRL+C to quit[0m
+2026-06-21 22:17:45,685 - INFO -  * Restarting with stat
+2026-06-21 22:17:46,621 - WARNING -  * Debugger is active!
+2026-06-21 22:17:46,624 - INFO -  * Debugger PIN: 458-672-390
+2026-06-21 22:17:53,383 - INFO - 127.0.0.1 - - [21/Jun/2026 22:17:53] "GET / HTTP/1.1" 200 -
+2026-06-21 22:17:53,414 - INFO - 127.0.0.1 - - [21/Jun/2026 22:17:53] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:23:36,741 - INFO - 127.0.0.1 - - [21/Jun/2026 22:23:36] "GET / HTTP/1.1" 200 -
+2026-06-21 22:23:36,786 - INFO - 127.0.0.1 - - [21/Jun/2026 22:23:36] "GET /static/style.css HTTP/1.1" 200 -
+2026-06-21 22:23:36,947 - INFO - 127.0.0.1 - - [21/Jun/2026 22:23:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-21 22:23:44,915 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-21 22:23:44,915 - INFO - [33mPress CTRL+C to quit[0m
+2026-06-21 22:23:44,917 - INFO -  * Restarting with stat
+2026-06-21 22:23:46,055 - WARNING -  * Debugger is active!
+2026-06-21 22:23:46,058 - INFO -  * Debugger PIN: 458-672-390
+2026-06-21 22:23:50,234 - INFO - 127.0.0.1 - - [21/Jun/2026 22:23:50] "GET / HTTP/1.1" 200 -
+2026-06-21 22:23:50,268 - INFO - 127.0.0.1 - - [21/Jun/2026 22:23:50] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:27:42,973 - INFO - 127.0.0.1 - - [21/Jun/2026 22:27:42] "GET / HTTP/1.1" 200 -
+2026-06-21 22:27:43,008 - INFO - 127.0.0.1 - - [21/Jun/2026 22:27:43] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:29:09,684 - INFO - File uploaded: input\20260621_222909_walmart_830_test.edi | Partner: WALMART
+2026-06-21 22:29:09,686 - INFO - Detected transaction type: 830 - Planning Schedule
+2026-06-21 22:29:09,686 - INFO - Segments found in file: ['ISA', 'GS', 'ST', 'BFR', 'REF', 'N1', 'LIN', 'FST', 'SE', 'GE', 'IEA']
+2026-06-21 22:29:09,687 - INFO - Validation PASSED — all Walmart mandatory checks satisfied
+2026-06-21 22:29:09,687 - INFO - Parsed 830 successfully
+2026-06-21 22:29:09,704 - INFO - XML file written: output/xml\830_REL-2026-07_20260621_222909.xml
+2026-06-21 22:29:09,706 - INFO - 997 FA generated: output/acks\997_830_REL-2026-07_Accepted_20260621_222909.edi | Status: Accepted
+2026-06-21 22:29:09,738 - INFO - 127.0.0.1 - - [21/Jun/2026 22:29:09] "[35m[1mPOST /process HTTP/1.1[0m" 500 -
+2026-06-21 22:29:09,797 - INFO - 127.0.0.1 - - [21/Jun/2026 22:29:09] "GET /process?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-06-21 22:29:09,964 - INFO - 127.0.0.1 - - [21/Jun/2026 22:29:09] "GET /process?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2026-06-21 22:29:10,323 - INFO - 127.0.0.1 - - [21/Jun/2026 22:29:10] "GET /process?__debugger__=yes&cmd=resource&f=console.png&s=3Oe1um4cdWxg7RkQgypw HTTP/1.1" 200 -
+2026-06-21 22:29:10,561 - INFO - 127.0.0.1 - - [21/Jun/2026 22:29:10] "GET /process?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2026-06-21 22:30:24,088 - INFO - File uploaded: input\20260621_223024_walmart_830_test.edi | Partner: WALMART
+2026-06-21 22:30:24,089 - INFO - Detected transaction type: 830 - Planning Schedule
+2026-06-21 22:30:24,090 - INFO - Segments found in file: ['ISA', 'GS', 'ST', 'BFR', 'REF', 'N1', 'LIN', 'FST', 'SE', 'GE', 'IEA']
+2026-06-21 22:30:24,090 - INFO - Validation PASSED — all Walmart mandatory checks satisfied
+2026-06-21 22:30:24,090 - INFO - Parsed 830 successfully
+2026-06-21 22:30:24,091 - INFO - XML file written: output/xml\830_REL-2026-07_20260621_223024.xml
+2026-06-21 22:30:24,092 - INFO - 997 FA generated: output/acks\997_830_REL-2026-07_Accepted_20260621_223024.edi | Status: Accepted
+2026-06-21 22:30:24,108 - INFO - 127.0.0.1 - - [21/Jun/2026 22:30:24] "POST /process HTTP/1.1" 200 -
+2026-06-21 22:30:24,147 - INFO - 127.0.0.1 - - [21/Jun/2026 22:30:24] "GET /static/style.css HTTP/1.1" 200 -
+2026-06-21 22:30:24,359 - INFO - 127.0.0.1 - - [21/Jun/2026 22:30:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-21 22:31:36,324 - INFO - 127.0.0.1 - - [21/Jun/2026 22:31:36] "GET / HTTP/1.1" 200 -
+2026-06-21 22:31:36,469 - INFO - 127.0.0.1 - - [21/Jun/2026 22:31:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:31:44,632 - INFO - File uploaded: input\20260621_223144_walmart_850_test.edi | Partner: WALMART
+2026-06-21 22:31:44,635 - INFO - Detected transaction type: 850 - Purchase Order
+2026-06-21 22:31:44,635 - INFO - Segments found in file: ['ISA', 'GS', 'ST', 'BEG', 'REF', 'DTM', 'N1', 'PO1', 'CTT', 'SE', 'GE', 'IEA']
+2026-06-21 22:31:44,635 - INFO - Validation PASSED — all Walmart mandatory checks satisfied
+2026-06-21 22:31:44,635 - INFO - Parsed 850 successfully
+2026-06-21 22:31:44,636 - INFO - XML file written: output/xml\850_PO-78542_20260621_223144.xml
+2026-06-21 22:31:44,643 - INFO - 997 FA generated: output/acks\997_850_PO-78542_Accepted_20260621_223144.edi | Status: Accepted
+2026-06-21 22:31:44,644 - INFO - 127.0.0.1 - - [21/Jun/2026 22:31:44] "POST /process HTTP/1.1" 200 -
+2026-06-21 22:31:44,931 - INFO - 127.0.0.1 - - [21/Jun/2026 22:31:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:31:53,339 - INFO - 127.0.0.1 - - [21/Jun/2026 22:31:53] "GET /history HTTP/1.1" 200 -
+2026-06-21 22:31:53,574 - INFO - 127.0.0.1 - - [21/Jun/2026 22:31:53] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:31:59,379 - INFO - 127.0.0.1 - - [21/Jun/2026 22:31:59] "GET / HTTP/1.1" 200 -
+2026-06-21 22:31:59,682 - INFO - 127.0.0.1 - - [21/Jun/2026 22:31:59] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
