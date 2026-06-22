@@ -1,177 +1,91 @@
-# EDI File Processor 🔄
+# Retail EDI Validation Portal
 
-A Python-based EDI file processing tool that reads, parses, validates, and reports on EDI transactions — with professional logging and API notifications.
-
-Built as a learning project by an Enterprise Integration Architect with 10 years of IBM Sterling B2B experience.
-
----
-
-## 🚀 Features
-
-- 📂 **File Detection** — Automatically scans input folder and identifies EDI, CSV, and unknown files
-- 🔍 **EDI Parsing** — Parses key EDI segments (ISA, ST, BEG, PO1) and extracts structured data
-- ✅ **Validation** — Validates required fields and catches malformed EDI files gracefully
-- 📊 **Report Generation** — Creates timestamped reports in the `output/` folder
-- 📋 **Professional Logging** — Logs all activity with timestamps and log levels to `logs/` folder
-- 🔔 **API Notifications** — Sends processing summary to a webhook endpoint on completion
-- 🛡️ **Error Handling** — Handles broken files, missing folders, and API failures without crashing
+> A real-time EDI pre-validation gateway built in Python — 
+> catches errors before files reach Sterling File Gateway.
 
 ---
 
-## 📁 Project Structure
+## The Problem It Solves
 
-```
-edi-processor/
-│
-├── input/                  # Drop EDI files here for processing
-│   └── orders.edi          # Sample EDI 850 Purchase Order
-│
-├── output/                 # Generated reports (timestamped)
-│   └── report_YYYYMMDD_HHMMSS.txt
-│
-├── logs/                   # Processing logs (daily log files)
-│   └── processor_YYYYMMDD.log
-│
-└── processor.py            # Main processor script
-```
+Suppliers send EDI files to retailers like Walmart and wait **hours** to find out if their file was rejected. This portal gives them **instant validation** — before the file ever enters the EDI pipeline.
 
 ---
 
-## ⚙️ How It Works
+## What It Does
 
-```
-input/orders.edi
-      ↓
-  read_file()         → reads raw file content
-      ↓
-  parse_edi()         → extracts sender, receiver, PO number, line items
-      ↓
-  print_summary()     → logs structured summary to console & log file
-      ↓
-  write_report()      → saves report to output/ folder
-      ↓
-  send_notification() → sends JSON payload to webhook endpoint
-```
+Upload an EDI file → get results in seconds.
+
+| Step | What Happens |
+|------|-------------|
+| 🔍 **Detect** | Reads the ST segment, identifies transaction type automatically |
+| ✅ **Validate** | Checks all mandatory segments against Walmart X12 004010 spec |
+| 📄 **Transform** | Converts raw EDI → structured XML for downstream systems |
+| 📨 **Acknowledge** | Generates a 997 FA — accepted or rejected with error details |
+| 📬 **Submit** | Routes valid files to the trading partner's SFG mailbox |
 
 ---
 
-## 🛠️ Tech Stack
+## Supported Transactions
 
-![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=flat-square&logo=python&logoColor=white)
-![Requests](https://img.shields.io/badge/requests-2.34-FF6B35?style=flat-square)
-![Logging](https://img.shields.io/badge/logging-built--in-4A90D9?style=flat-square)
-![EDI](https://img.shields.io/badge/EDI-X12%20850-052FAD?style=flat-square)
-
----
-
-## 📋 Supported EDI Segments
-
-| Segment | Description | Extracted Fields |
-|---------|-------------|-----------------|
-| `ISA` | Interchange Header | Sender ID, Receiver ID |
-| `ST` | Transaction Set | Transaction Type (850, 810, etc.) |
-| `BEG` | Beginning of PO | PO Number |
-| `PO1` | Line Item | Quantity, Unit, Price |
+| Code | Transaction | Direction |
+|------|-------------|-----------|
+| 850 | Purchase Order | Walmart → Supplier |
+| 810 | Invoice | Supplier → Walmart |
+| 856 | Ship Notice / ASN | Supplier → Walmart |
+| 830 | Planning Schedule | Walmart → Supplier |
 
 ---
 
-## 🚀 Getting Started
+## Demo
 
-### Prerequisites
-- Python 3.x
-- `requests` library
+**Valid file** — instant summary, XML download, 997 FA, one-click SFG submission
 
-### Installation
+**Invalid file** — exact errors listed by segment, rejected 997 FA generated
+Missing mandatory segment: BEG (required by Walmart 850 spec)
+
+Missing mandatory segment: DTM (required by Walmart 850 spec)
+
+Missing mandatory segment: N1  (required by Walmart 850 spec)
+
+Missing mandatory segment: CTT (required by Walmart 850 spec)
+
+---
+
+## Tech Stack
+Python 3.13 · Flask · X12 EDI 004010 · XML · HTML/CSS
+
+---
+
+## Quick Start
 
 ```bash
-# Clone the repository
 git clone https://github.com/bharadwajkolli2602/edi-processor.git
 cd edi-processor
-
-# Install dependencies
-pip install requests
-
-# Create required folders
-mkdir input output logs
+python -m venv .venv && .venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
 ```
 
-### Usage
-
-```bash
-# Drop your EDI files into the input/ folder
-# Then run:
-python processor.py
-```
-
-### Sample Output
-
-```
-2026-06-14 22:02:59 - INFO - Logging initialized
-2026-06-14 22:02:59 - INFO - Scanning folder: input
-2026-06-14 22:02:59 - INFO - Processing EDI file: orders.edi
-2026-06-14 22:02:59 - INFO - ==================================================
-2026-06-14 22:02:59 - INFO -   FILE     : orders.edi
-2026-06-14 22:02:59 - INFO -   SENDER   : CATERPILLAR
-2026-06-14 22:02:59 - INFO -   RECEIVER : TRUISTBANK
-2026-06-14 22:02:59 - INFO -   TYPE     : 850
-2026-06-14 22:02:59 - INFO -   PO NUM   : PO-12345
-2026-06-14 22:02:59 - INFO -   ITEMS    : 1
-2026-06-14 22:02:59 - INFO -   Qty: 100 EA @ $25.00
-2026-06-14 22:02:59 - INFO - ==================================================
-2026-06-14 22:02:59 - INFO -   PROCESSED : 1 files
-2026-06-14 22:02:59 - INFO -   SKIPPED   : 0 files
-2026-06-14 22:02:59 - INFO -   ERRORS    : 0 files
-2026-06-14 22:02:59 - INFO - Notification sent successfully!
-```
+Open `http://localhost:5000`
 
 ---
 
-## 🔔 Webhook Notifications
+## Project Structure
+edi/
 
-On completion, the processor sends a JSON payload to a configured webhook:
+├── detector.py       identify transaction type
 
-```json
-{
-  "summary": "EDI Processing Complete",
-  "timestamp": "2026-06-14 22:02:59",
-  "results": {
-    "processed": 1,
-    "skipped": 0,
-    "errors": 0,
-    "report": "output/report_20260614_220259.txt"
-  },
-  "status": "SUCCESS"
-}
-```
+├── validator.py      Walmart spec validation
 
-To configure, update `WEBHOOK_URL` in `processor.py`:
-```python
-WEBHOOK_URL = "https://your-webhook-url-here"
-```
+├── parser.py         extract business data
+
+├── xml_builder.py    EDI → XML
+
+├── acknowledger.py   generate 997 FA
+
+└── mailbox.py        SFG mailbox submission
 
 ---
 
-## 🗺️ Roadmap
-
-- [x] Phase 1 — Read & Parse EDI files
-- [x] Phase 2 — Timestamped report generation
-- [x] Phase 3 — Professional logging
-- [x] Phase 4 — Error handling & processing stats
-- [x] Phase 5 — API notifications via webhook
-- [ ] Phase 6 — Support for 810 (Invoice) and 856 (ASN) transactions
-- [ ] Phase 7 — Archive processed files automatically
-- [ ] Phase 8 — REST API wrapper with Flask
-
----
-
-## 👨‍💻 Author
-
-**Bharadwaj Kolli** — Enterprise Integration Architect
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/bharadwaj-kolli-5b1a5576/)
-[![GitHub](https://img.shields.io/badge/GitHub-Profile-100000?style=flat-square&logo=github)](https://github.com/bharadwajkolli2602)
-[![Portfolio](https://img.shields.io/badge/Portfolio-Visit-navy?style=flat-square)](https://bharadwajkolli2602.github.io)
-
----
-
-> *"Built by someone who has spent 10 years working with EDI systems — now automating them with Python."*
+**Built by Bharadwaj Kolli** — Enterprise Integration Architect  
+*Demonstrating hands-on EDI knowledge that most developers don't have.*

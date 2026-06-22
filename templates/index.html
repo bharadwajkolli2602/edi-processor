@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="hero">
+  <h1>Retail EDI Validation Portal</h1>
+  <p class="hero-sub">
+    Upload your EDI file for instant Walmart spec validation,
+    XML transformation, and 997 FA generation.
+  </p>
+</div>
+
+<div class="card upload-card">
+  <h2>Upload EDI File</h2>
+  <p class="card-sub">Supported transactions: 850 · 810 · 856 · 830</p>
+
+  <form action="/process" method="POST" enctype="multipart/form-data">
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📂</div>
+      <p class="upload-text">Drag & drop or click to select</p>
+      <p class="upload-hint">Accepts .edi files only</p>
+      <input
+        type="file"
+        name="edi_file"
+        id="ediFile"
+        accept=".edi"
+        class="file-input"
+        required
+      />
+      <p class="file-selected" id="fileSelected"></p>
+    </div>
+    <button type="submit" class="btn btn-primary btn-full">
+      Validate &amp; Process
+    </button>
+  </form>
+</div>
+
+<div class="info-grid">
+  <div class="info-card">
+    <div class="info-icon">🔍</div>
+    <h3>Auto Detection</h3>
+    <p>Automatically identifies 850, 810, 856, and 830 transaction types from the ST segment.</p>
+  </div>
+  <div class="info-card">
+    <div class="info-icon">✅</div>
+    <h3>Walmart Validation</h3>
+    <p>Validates all mandatory segments and field values against Walmart X12 EDI guidelines.</p>
+  </div>
+  <div class="info-card">
+    <div class="info-icon">📄</div>
+    <h3>XML Output</h3>
+    <p>Transforms validated EDI into structured XML for downstream ERP and WMS integration.</p>
+  </div>
+  <div class="info-card">
+    <div class="info-icon">📨</div>
+    <h3>997 FA Generation</h3>
+    <p>Generates a Functional Acknowledgment and routes accepted files to the SFG mailbox.</p>
+  </div>
+</div>
+
+<script>
+  const input    = document.getElementById("ediFile");
+  const label    = document.getElementById("fileSelected");
+  const area     = document.getElementById("uploadArea");
+
+  input.addEventListener("change", () => {
+    if (input.files.length > 0) {
+      label.textContent = "Selected: " + input.files[0].name;
+      area.classList.add("file-ready");
+    }
+  });
+</script>
+
+{% endblock %}

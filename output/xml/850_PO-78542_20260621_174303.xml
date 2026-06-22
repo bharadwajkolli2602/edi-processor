@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<EDITransaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" retailer="Walmart" version="X12-004010">
+  <Header>
+    <TransactionType>850</TransactionType>
+      <TransactionName>Purchase Order</TransactionName>
+      <Sender>WALMART</Sender>
+      <Receiver>SUPPLIER123</Receiver>
+      <InterchangeDate>260620</InterchangeDate>
+      <ControlNumber>000000001</ControlNumber>
+      <ProcessedAt>2026-06-21 17:43:03</ProcessedAt>
+      <ValidationStatus>VALID</ValidationStatus>
+  </Header>
+  <PurchaseOrder>
+    <PONumber>PO-78542</PONumber>
+      <PODate>2026-06-20</PODate>
+      <POType>SA</POType>
+      <ShipDate>2026-06-25</ShipDate>
+      <CancelDate>2026-06-30</CancelDate>
+      <Buyer>
+      <Name>WALMART INC</Name>
+        <ID>0078742000992</ID>
+    </Buyer>
+    <Seller>
+      <Name>WALMART STORE 4521</Name>
+        <ID>0078742004521</ID>
+    </Seller>
+    <LineItems>
+      <Item sequence="1">
+        <Quantity>100</Quantity>
+          <Unit>EA</Unit>
+          <UnitPrice>12.50</UnitPrice>
+          <UPC>00123456789012</UPC>
+          <VendorItem>DENIM-32X30</VendorItem>
+          <LineTotal>1250.0</LineTotal>
+      </Item>
+      <Item sequence="2">
+        <Quantity>50</Quantity>
+          <Unit>EA</Unit>
+          <UnitPrice>24.00</UnitPrice>
+          <UPC>00987654321098</UPC>
+          <VendorItem>TSHIRT-WL</VendorItem>
+          <LineTotal>1200.0</LineTotal>
+      </Item>
+    </LineItems>
+    <OrderSummary>
+      <TotalLineItems>2</TotalLineItems>
+        <OrderTotal>2450.0</OrderTotal>
+    </OrderSummary>
+  </PurchaseOrder>
+  <ValidationResult>
+    <Status>VALID</Status>
+      <ErrorCount>0</ErrorCount>
+  </ValidationResult>
+</EDITransaction>

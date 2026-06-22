@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="result-header {{ 'result-valid' if result.valid else 'result-invalid' }}">
+  <div class="result-status-icon">{{ '✅' if result.valid else '❌' }}</div>
+  <div>
+    <h1>{{ result.transaction_code }} — {{ result.transaction_name }}</h1>
+    <p class="result-status-label">
+      {{ 'VALID — All Walmart mandatory checks passed' if result.valid
+         else 'INVALID — Validation failed' }}
+    </p>
+  </div>
+</div>
+
+<div class="result-grid">
+
+  <!-- File Info -->
+  <div class="card">
+    <h3>File Information</h3>
+    <table class="info-table">
+      <tr><td>Filename</td>       <td>{{ result.filename }}</td></tr>
+      <tr><td>Processed At</td>   <td>{{ result.timestamp }}</td></tr>
+      <tr><td>Transaction</td>    <td>{{ result.transaction_code }} · {{ result.transaction_name }}</td></tr>
+      <tr><td>997 FA Status</td>  <td>{{ result.ack_label }}</td></tr>
+    </table>
+  </div>
+
+  <!-- Transaction Summary -->
+  {% if result.parsed %}
+  <div class="card">
+    <h3>Transaction Summary</h3>
+    <table class="info-table">
+      <tr><td>Sender</td>   <td>{{ result.parsed.interchange.sender }}</td></tr>
+      <tr><td>Receiver</td> <td>{{ result.parsed.interchange.receiver }}</td></tr>
+
+      {% if result.transaction_code == "850" %}
+        <tr><td>PO Number</td>    <td>{{ result.parsed.po_number }}</td></tr>
+        <tr><td>PO Date</td>      <td>{{ result.parsed.po_date }}</td></tr>
+        <tr><td>Ship Date</td>    <td>{{ result.parsed.ship_date }}</td></tr>
+        <tr><td>Cancel Date</td>  <td>{{ result.parsed.cancel_date }}</td></tr>
+        <tr><td>Buyer</td>        <td>{{ result.parsed.buyer.name }}</td></tr>
+        <tr><td>Line Items</td>   <td>{{ result.parsed.line_items | length }}</td></tr>
+        <tr><td>Order Total</td>  <td>${{ result.parsed.order_total }}</td></tr>
+
+      {% elif result.transaction_code == "810" %}
+        <tr><td>Invoice #</td>    <td>{{ result.parsed.invoice_number }}</td></tr>
+        <tr><td>Invoice Date</td> <td>{{ result.parsed.invoice_date }}</td></tr>
+        <tr><td>PO Reference</td> <td>{{ result.parsed.po_number }}</td></tr>
+        <tr><td>Vendor #</td>     <td>{{ result.parsed.vendor_number }}</td></tr>
+        <tr><td>Line Items</td>   <td>{{ result.parsed.line_items | length }}</td></tr>
+        <tr><td>Invoice Total</td><td>${{ result.parsed.invoice_total }}</td></tr>
+
+      {% elif result.transaction_code == "856" %}
+        <tr><td>Shipment ID</td>  <td>{{ result.parsed.shipment_id }}</td></tr>
+        <tr><td>Ship Date</td>    <td>{{ result.parsed.ship_date }}</td></tr>
+        <tr><td>Carrier SCAC</td> <td>{{ result.parsed.carrier_scac }}</td></tr>
+        <tr><td>BOL Number</td>   <td>{{ result.parsed.bol_number }}</td></tr>
+        <tr><td>PO Reference</td> <td>{{ result.parsed.po_reference }}</td></tr>
+        <tr><td>Gross Weight</td> <td>{{ result.parsed.gross_weight }} LB</td></tr>
+
+      {% elif result.transaction_code == "830" %}
+        <tr><td>Release #</td>    <td>{{ result.parsed.release_number }}</td></tr>
+        <tr><td>Schedule Date</td><td>{{ result.parsed.schedule_date }}</td></tr>
+        <tr><td>Buyer</td>        <td>{{ result.parsed.buyer.name }}</td></tr>
+        <tr><td>Line Items</td>   <td>{{ result.parsed.line_items | length }}</td></tr>
+        <tr><td>Forecasts</td>    <td>{{ result.parsed.line_items | sum(attribute='forecasts') | length }}</td></tr>
+      {% endif %}
+    </table>
+  </div>
+  {% endif %}
+
+</div>
+
+<!-- Line Items Table (850 and 810) -->
+{% if result.parsed and result.transaction_code in ["850", "810"] %}
+<div class="card">
+  <h3>Line Items</h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>UPC</th>
+        <th>Vendor Item</th>
+        <th>Qty</th>
+        <th>Unit</th>
+        <th>Unit Price</th>
+        <th>Line Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in result.parsed.line_items %}
+      <tr>
+        <td>{{ item.line_number }}</td>
+        <td>{{ item.upc }}</td>
+        <td>{{ item.vendor_item if item.vendor_item else '—' }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.unit }}</td>
+        <td>${{ item.unit_price }}</td>
+        <td>
+          {% if item.quantity and item.unit_price %}
+            ${{ (item.quantity | float * item.unit_price | float) | round(2) }}
+          {% else %}—{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<!-- Validation Errors -->
+{% if result.errors %}
+<div class="card card-error">
+  <h3>Validation Errors</h3>
+  <ul class="error-list">
+    {% for error in result.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<!-- Actions -->
+<div class="card">
+  <h3>Actions</h3>
+  <div class="action-row">
+
+    {% if result.xml_filepath %}
+    <a href="/download/{{ result.xml_filepath }}" class="btn btn-secondary">
+      ⬇ Download XML
+    </a>
+    {% endif %}
+
+    {% if result.ack_filepath %}
+    <a href="/download/{{ result.ack_filepath }}" class="btn btn-secondary">
+      ⬇ Download 997 FA
+    </a>
+    {% endif %}
+
+    {% if result.valid %}
+    <form action="/submit" method="POST" style="display:inline;">
+      <button type="submit" class="btn btn-primary">
+        📨 Submit to SFG Mailbox
+      </button>
+    </form>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}" class="btn btn-ghost">
+      ↑ Upload Another File
+    </a>
+
+  </div>
+</div>
+
+{% endblock %}

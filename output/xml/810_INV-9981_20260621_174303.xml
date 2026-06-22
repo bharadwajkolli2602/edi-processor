@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<EDITransaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" retailer="Walmart" version="X12-004010">
+  <Header>
+    <TransactionType>810</TransactionType>
+      <TransactionName>Invoice</TransactionName>
+      <Sender>SUPPLIER123</Sender>
+      <Receiver>WALMART</Receiver>
+      <InterchangeDate>260621</InterchangeDate>
+      <ControlNumber>000000002</ControlNumber>
+      <ProcessedAt>2026-06-21 17:43:03</ProcessedAt>
+      <ValidationStatus>VALID</ValidationStatus>
+  </Header>
+  <Invoice>
+    <InvoiceNumber>INV-9981</InvoiceNumber>
+      <InvoiceDate>2026-06-21</InvoiceDate>
+      <PONumber>PO-78542</PONumber>
+      <VendorNumber>SUP-4521</VendorNumber>
+      <RemitTo>
+      <Name>SUPPLIER123 LLC</Name>
+        <ID>0078742000111</ID>
+    </RemitTo>
+    <ShipTo>
+      <Name>WALMART STORE 4521</Name>
+        <ID>0078742004521</ID>
+    </ShipTo>
+    <LineItems>
+      <Item sequence="1">
+        <Quantity>100</Quantity>
+          <Unit>EA</Unit>
+          <UnitPrice>12.50</UnitPrice>
+          <UPC>00123456789012</UPC>
+          <LineTotal>1250.0</LineTotal>
+      </Item>
+      <Item sequence="2">
+        <Quantity>50</Quantity>
+          <Unit>EA</Unit>
+          <UnitPrice>24.00</UnitPrice>
+          <UPC>00987654321098</UPC>
+          <LineTotal>1200.0</LineTotal>
+      </Item>
+    </LineItems>
+    <InvoiceSummary>
+      <InvoiceTotal>3650.0</InvoiceTotal>
+    </InvoiceSummary>
+  </Invoice>
+  <ValidationResult>
+    <Status>VALID</Status>
+      <ErrorCount>0</ErrorCount>
+  </ValidationResult>
+</EDITransaction>

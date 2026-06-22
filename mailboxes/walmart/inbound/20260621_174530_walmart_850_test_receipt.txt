@@ -1,0 +1,12 @@
+==================================================
+  SFG MAILBOX SUBMISSION RECEIPT
+==================================================
+  Submitted At   : 2026-06-21 17:45:30
+  Transaction    : 850
+  PO Number      : PO-78542
+  Sender         : WALMART
+  Receiver       : SUPPLIER123
+  Control Number : 000000001
+  File           : 20260621_174530_walmart_850_test.edi
+  Status         : DELIVERED TO SFG MAILBOX
+==================================================

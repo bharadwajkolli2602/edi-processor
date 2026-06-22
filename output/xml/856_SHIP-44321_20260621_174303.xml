@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<EDITransaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" retailer="Walmart" version="X12-004010">
+  <Header>
+    <TransactionType>856</TransactionType>
+      <TransactionName>Ship Notice / ASN</TransactionName>
+      <Sender>SUPPLIER123</Sender>
+      <Receiver>WALMART</Receiver>
+      <InterchangeDate>260622</InterchangeDate>
+      <ControlNumber>000000003</ControlNumber>
+      <ProcessedAt>2026-06-21 17:43:03</ProcessedAt>
+      <ValidationStatus>VALID</ValidationStatus>
+  </Header>
+  <ShipNotice>
+    <ShipmentID>SHIP-44321</ShipmentID>
+      <ShipDate>2026-06-22</ShipDate>
+      <ShipTime>080000</ShipTime>
+      <BOLNumber>BOL-998877</BOLNumber>
+      <POReference>PO-78542</POReference>
+      <CarrierSCAC>UPSN</CarrierSCAC>
+      <Routing>M</Routing>
+      <PackagingCode>CTN25</PackagingCode>
+      <GrossWeight>LB</GrossWeight>
+      <HierarchicalLevels>
+      <Level>
+        <ID>1</ID>
+          <Parent />
+          <Code>S</Code>
+      </Level>
+      <Level>
+        <ID>2</ID>
+          <Parent>1</Parent>
+          <Code>O</Code>
+      </Level>
+      <Level>
+        <ID>3</ID>
+          <Parent>2</Parent>
+          <Code>P</Code>
+      </Level>
+      <Level>
+        <ID>4</ID>
+          <Parent>3</Parent>
+          <Code>I</Code>
+      </Level>
+    </HierarchicalLevels>
+  </ShipNotice>
+  <ValidationResult>
+    <Status>VALID</Status>
+      <ErrorCount>0</ErrorCount>
+  </ValidationResult>
+</EDITransaction>
