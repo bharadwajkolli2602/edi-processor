@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<EDITransaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" retailer="Walmart" version="X12-004010">
+  <Header>
+    <TransactionType>830</TransactionType>
+      <TransactionName>Planning Schedule</TransactionName>
+      <Sender>WALMART</Sender>
+      <Receiver>SUPPLIER123</Receiver>
+      <InterchangeDate>260620</InterchangeDate>
+      <ControlNumber>000000004</ControlNumber>
+      <ProcessedAt>2026-06-21 22:30:24</ProcessedAt>
+      <ValidationStatus>VALID</ValidationStatus>
+  </Header>
+  <PlanningSchedule>
+    <ReleaseNumber>REL-2026-07</ReleaseNumber>
+      <ScheduleDate>2026-06-20</ScheduleDate>
+      <Buyer>
+      <Name>WALMART INC</Name>
+        <ID>0078742000992</ID>
+    </Buyer>
+    <Seller>
+      <Name>SUPPLIER123 LLC</Name>
+        <ID>0078742000111</ID>
+    </Seller>
+    <LineItems>
+      <Item sequence="1">
+        <UPC>00123456789012</UPC>
+          <VendorItem>DENIM-32X30</VendorItem>
+          <Forecasts>
+          <Forecast>
+            <Quantity>200</Quantity>
+              <Qualifier>D</Qualifier>
+              <Date>2026-07-01</Date>
+          </Forecast>
+          <Forecast>
+            <Quantity>150</Quantity>
+              <Qualifier>D</Qualifier>
+              <Date>2026-07-15</Date>
+          </Forecast>
+          <Forecast>
+            <Quantity>300</Quantity>
+              <Qualifier>D</Qualifier>
+              <Date>2026-08-01</Date>
+          </Forecast>
+        </Forecasts>
+      </Item>
+    </LineItems>
+  </PlanningSchedule>
+  <ValidationResult>
+    <Status>VALID</Status>
+      <ErrorCount>0</ErrorCount>
+  </ValidationResult>
+</EDITransaction>

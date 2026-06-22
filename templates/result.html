@@ -63,7 +63,7 @@
         <tr><td>Schedule Date</td><td>{{ result.parsed.schedule_date }}</td></tr>
         <tr><td>Buyer</td>        <td>{{ result.parsed.buyer.name }}</td></tr>
         <tr><td>Line Items</td>   <td>{{ result.parsed.line_items | length }}</td></tr>
-        <tr><td>Forecasts</td>    <td>{{ result.parsed.line_items | sum(attribute='forecasts') | length }}</td></tr>
+        <tr><td>Forecasts</td>    <td>{{ result.parsed.line_items | map(attribute='forecasts') | map('length') | sum }}</td></tr>
       {% endif %}
     </table>
   </div>

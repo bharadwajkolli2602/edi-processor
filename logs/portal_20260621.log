@@ -2,3 +2,28 @@
  * Running on http://127.0.0.1:5000
 2026-06-21 17:49:07,885 - INFO - [33mPress CTRL+C to quit[0m
 2026-06-21 17:49:07,887 - INFO -  * Restarting with stat
+2026-06-21 17:49:08,660 - WARNING -  * Debugger is active!
+2026-06-21 17:49:08,679 - INFO -  * Debugger PIN: 458-672-390
+2026-06-21 17:49:22,175 - INFO - 127.0.0.1 - - [21/Jun/2026 17:49:22] "GET / HTTP/1.1" 200 -
+2026-06-21 17:49:22,291 - INFO - 127.0.0.1 - - [21/Jun/2026 17:49:22] "GET /static/style.css HTTP/1.1" 200 -
+2026-06-21 17:49:22,438 - INFO - 127.0.0.1 - - [21/Jun/2026 17:49:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-21 17:54:48,276 - INFO - File uploaded: input\20260621_175448_walmart_850_bad.edi
+2026-06-21 17:54:48,278 - INFO - Detected transaction type: 850 - Purchase Order
+2026-06-21 17:54:48,278 - INFO - Segments found in file: ['ISA', 'GS', 'ST', 'REF', 'PO1', 'SE', 'GE', 'IEA']
+2026-06-21 17:54:48,279 - WARNING - Missing mandatory segment: BEG (required by Walmart 850 spec)
+2026-06-21 17:54:48,279 - WARNING - Missing mandatory segment: DTM (required by Walmart 850 spec)
+2026-06-21 17:54:48,279 - WARNING - Missing mandatory segment: N1 (required by Walmart 850 spec)
+2026-06-21 17:54:48,280 - WARNING - Missing mandatory segment: CTT (required by Walmart 850 spec)
+2026-06-21 17:54:48,280 - WARNING - Validation FAILED — 4 error(s) found
+2026-06-21 17:54:48,280 - INFO - Parsed 850 successfully
+2026-06-21 17:54:48,281 - INFO - 997 FA generated: output/acks\997_850__Rejected_20260621_175448.edi | Status: Rejected
+2026-06-21 17:54:48,313 - INFO - 127.0.0.1 - - [21/Jun/2026 17:54:48] "POST /process HTTP/1.1" 200 -
+2026-06-21 17:54:48,355 - INFO - 127.0.0.1 - - [21/Jun/2026 17:54:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:09:35,559 - INFO - 127.0.0.1 - - [21/Jun/2026 22:09:35] "GET / HTTP/1.1" 200 -
+2026-06-21 22:09:35,673 - INFO - 127.0.0.1 - - [21/Jun/2026 22:09:35] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:09:40,122 - INFO - 127.0.0.1 - - [21/Jun/2026 22:09:40] "GET /history HTTP/1.1" 200 -
+2026-06-21 22:09:40,420 - INFO - 127.0.0.1 - - [21/Jun/2026 22:09:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:09:47,463 - INFO - 127.0.0.1 - - [21/Jun/2026 22:09:47] "GET / HTTP/1.1" 200 -
+2026-06-21 22:09:47,597 - INFO - 127.0.0.1 - - [21/Jun/2026 22:09:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2026-06-21 22:12:40,240 - INFO -  * Detected change in 'C:\\Users\\kbhar\\edi-processor\\config.py', reloading
+2026-06-21 22:12:40,382 - INFO -  * Restarting with stat

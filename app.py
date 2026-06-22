@@ -17,7 +17,7 @@ from flask import (
 
 from config import (
     FLASK_SECRET_KEY, ALLOWED_EXTENSION,
-    INPUT_FOLDER, LOG_FOLDER
+    INPUT_FOLDER, LOG_FOLDER, TRADING_PARTNERS
 )
 from edi.detector     import detect_transaction_type, get_transaction_name
 from edi.validator    import validate, format_validation_report
@@ -46,7 +46,6 @@ logging.basicConfig(
 )
 
 # ── In-memory transaction history ─────────
-# Stores results of all uploads this session
 transaction_history = []
 
 
@@ -60,7 +59,7 @@ def allowed_file(filename):
 # ============================================
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return render_template("index.html", partners=TRADING_PARTNERS)
 
 
 # ============================================
@@ -73,7 +72,8 @@ def process():
         flash("No file selected. Please choose an EDI file.", "error")
         return redirect(url_for("index"))
 
-    file = request.files["edi_file"]
+    file        = request.files["edi_file"]
+    partner_key = request.form.get("partner", "WALMART").upper()
 
     if file.filename == "":
         flash("No file selected.", "error")
@@ -89,7 +89,7 @@ def process():
     safe_filename = f"{timestamp}_{file.filename}"
     filepath      = os.path.join(INPUT_FOLDER, safe_filename)
     file.save(filepath)
-    logging.info(f"File uploaded: {filepath}")
+    logging.info(f"File uploaded: {filepath} | Partner: {partner_key}")
 
     # ── Read content ──────────────────────
     with open(filepath, "r", encoding="utf-8") as f:
@@ -127,6 +127,8 @@ def process():
         "timestamp":        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "transaction_code": transaction_code,
         "transaction_name": transaction_name,
+        "partner_key":      partner_key,
+        "partner_name":     TRADING_PARTNERS.get(partner_key, {}).get("name", partner_key),
         "valid":            validation_result["valid"],
         "errors":           validation_result["errors"],
         "warnings":         validation_result["warnings"],
@@ -134,8 +136,6 @@ def process():
         "xml_filepath":     xml_filepath,
         "ack_filepath":     ack_filepath,
         "ack_label":        ack_label,
-        "submitted":        False,
-        "submit_message":   ""
     }
 
     # ── Add to history ────────────────────
@@ -144,13 +144,15 @@ def process():
         "filename":         result["filename"],
         "transaction_code": transaction_code,
         "transaction_name": transaction_name,
+        "partner":          result["partner_name"],
         "status":           "VALID" if result["valid"] else "INVALID",
         "ack_label":        ack_label
     })
 
-    # ── Store result in session for submit
+    # ── Store in session for submit ───────
     session["last_filepath"]         = filepath
     session["last_transaction_code"] = transaction_code
+    session["last_partner_key"]      = partner_key
 
     return render_template("result.html", result=result)
 
@@ -162,6 +164,7 @@ def process():
 def submit():
     filepath         = session.get("last_filepath")
     transaction_code = session.get("last_transaction_code")
+    partner_key      = session.get("last_partner_key", "WALMART")
 
     if not filepath or not transaction_code:
         flash("Session expired. Please upload your file again.", "error")
@@ -170,13 +173,13 @@ def submit():
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
-    parsed_data = parse(content, transaction_code)
+    parsed_data            = parse(content, transaction_code)
     success, dest, message = submit_to_mailbox(
-        filepath, transaction_code, parsed_data
+        filepath, transaction_code, parsed_data, partner_key
     )
 
     if success:
-        flash(f"File submitted to SFG mailbox successfully! → {dest}", "success")
+        flash(f"File submitted successfully! → {dest}", "success")
     else:
         flash(f"Submission failed: {message}", "error")
 
@@ -188,11 +191,17 @@ def submit():
 # ============================================
 @app.route("/history")
 def history():
-    mailbox_files = get_mailbox_contents("WALMART")
+    # Collect mailbox contents for all partners
+    all_mailboxes = {}
+    for key, partner in TRADING_PARTNERS.items():
+        files = get_mailbox_contents(key)
+        if files:
+            all_mailboxes[partner["name"]] = files
+
     return render_template(
         "history.html",
         history=transaction_history,
-        mailbox_files=mailbox_files
+        all_mailboxes=all_mailboxes
     )
 
 

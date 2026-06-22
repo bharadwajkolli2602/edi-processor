@@ -1,20 +1,38 @@
 # ============================================
 # config.py
-# Walmart EDI Validation Portal
-# Central configuration for all modules
+# Retail EDI Validation Portal
+# Generic X12 EDI Configuration
 # ============================================
 
 # ── Project Info ──────────────────────────
-PROJECT_NAME    = "Retail EDI Validation Portal"
-RETAILER        = "Walmart"
-EDI_VERSION     = "00401"  # X12 version Walmart uses
+PROJECT_NAME = "Retail EDI Validation Portal"
+EDI_VERSION  = "00401"
 
 # ── Folder Paths ─────────────────────────
-INPUT_FOLDER    = "input"
-OUTPUT_XML      = "output/xml"
-OUTPUT_ACKS     = "output/acks"
-LOG_FOLDER      = "logs"
-MAILBOX_WALMART = "mailboxes/walmart/inbound"
+INPUT_FOLDER = "input"
+OUTPUT_XML   = "output/xml"
+OUTPUT_ACKS  = "output/acks"
+LOG_FOLDER   = "logs"
+
+# ── Trading Partners & Mailboxes ─────────
+TRADING_PARTNERS = {
+    "WALMART": {
+        "name":    "Walmart",
+        "mailbox": "mailboxes/walmart/inbound"
+    },
+    "TARGET": {
+        "name":    "Target",
+        "mailbox": "mailboxes/target/inbound"
+    },
+    "KROGER": {
+        "name":    "Kroger",
+        "mailbox": "mailboxes/kroger/inbound"
+    },
+    "COSTCO": {
+        "name":    "Costco",
+        "mailbox": "mailboxes/costco/inbound"
+    },
+}
 
 # ── Supported Transaction Types ──────────
 TRANSACTION_TYPES = {
@@ -24,11 +42,8 @@ TRANSACTION_TYPES = {
     "830": "Planning Schedule"
 }
 
-# ── Walmart Mandatory Segments ────────────
-# These are the segments Walmart REQUIRES
-# in each transaction type.
-# If any are missing → file is REJECTED.
-
+# ── Mandatory Segments (X12 004010) ──────
+# Standard X12 spec — applies to all partners
 WALMART_MANDATORY_SEGMENTS = {
     "850": ["ISA", "GS", "ST", "BEG", "REF", "DTM", "N1", "PO1", "CTT", "SE", "GE", "IEA"],
     "810": ["ISA", "GS", "ST", "BIG", "REF", "N1", "IT1", "TDS", "SE", "GE", "IEA"],
@@ -36,10 +51,7 @@ WALMART_MANDATORY_SEGMENTS = {
     "830": ["ISA", "GS", "ST", "BFR", "REF", "N1", "LIN", "FST", "SE", "GE", "IEA"]
 }
 
-# ── Walmart Segment Field Rules ───────────
-# For each transaction, which fields inside
-# a segment are mandatory and what are they called.
-
+# ── Field Rules (X12 004010) ──────────────
 WALMART_FIELD_RULES = {
     "850": {
         "BEG": {
@@ -96,9 +108,9 @@ WALMART_FIELD_RULES = {
 }
 
 # ── 997 Acknowledgment Codes ─────────────
-ACK_ACCEPTED = "A"   # Accepted
-ACK_REJECTED = "R"   # Rejected with errors
+ACK_ACCEPTED = "A"
+ACK_REJECTED = "R"
 
 # ── Flask Settings ────────────────────────
-FLASK_SECRET_KEY  = "walmart-edi-portal-2026"
+FLASK_SECRET_KEY  = "edi-portal-2026"
 ALLOWED_EXTENSION = ".edi"

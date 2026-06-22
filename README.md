@@ -1,4 +1,4 @@
-# Retail EDI Validation Portal
+# EDI Gate — Retail EDI Validation Portal
 
 > A real-time EDI pre-validation gateway built in Python — 
 > catches errors before files reach Sterling File Gateway.
@@ -87,5 +87,6 @@ edi/
 
 ---
 
-**Built by Bharadwaj Kolli** — Enterprise Integration Architect  
+**EDI Gate** — Built by Bharadwaj Kolli  
+Enterprise Integration Architect | B2B EDI Specialist  
 *Demonstrating hands-on EDI knowledge that most developers don't have.*

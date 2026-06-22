@@ -15,6 +15,7 @@
         <th>Timestamp</th>
         <th>Filename</th>
         <th>Transaction</th>
+        <th>Partner</th>
         <th>Status</th>
         <th>997 FA</th>
       </tr>
@@ -25,6 +26,7 @@
         <td>{{ item.timestamp }}</td>
         <td>{{ item.filename }}</td>
         <td>{{ item.transaction_code }} · {{ item.transaction_name }}</td>
+        <td>{{ item.partner }}</td>
         <td>
           <span class="badge {{ 'badge-valid' if item.status == 'VALID' else 'badge-invalid' }}">
             {{ item.status }}
@@ -36,34 +38,43 @@
     </tbody>
   </table>
   {% else %}
-  <p class="empty-state">No files processed yet. <a href="{{ url_for('index') }}">Upload one now.</a></p>
+  <p class="empty-state">
+    No files processed yet.
+    <a href="{{ url_for('index') }}">Upload one now.</a>
+  </p>
   {% endif %}
 </div>
 
+<!-- Mailbox contents per partner -->
+{% if all_mailboxes %}
+  {% for partner_name, files in all_mailboxes.items() %}
+  <div class="card">
+    <h3>SFG Mailbox — {{ partner_name }} Inbound</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Submitted At</th>
+          <th>Filename</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for f in files %}
+        <tr>
+          <td>{{ f.submitted }}</td>
+          <td>{{ f.filename }}</td>
+          <td>{{ f.size }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endfor %}
+{% else %}
 <div class="card">
-  <h3>SFG Mailbox — Walmart Inbound</h3>
-  {% if mailbox_files %}
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Submitted At</th>
-        <th>Filename</th>
-        <th>Size</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for f in mailbox_files %}
-      <tr>
-        <td>{{ f.submitted }}</td>
-        <td>{{ f.filename }}</td>
-        <td>{{ f.size }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% else %}
-  <p class="empty-state">No files in mailbox yet.</p>
-  {% endif %}
+  <h3>SFG Mailboxes</h3>
+  <p class="empty-state">No files submitted to any mailbox yet.</p>
 </div>
+{% endif %}
 
 {% endblock %}

@@ -2,10 +2,10 @@
 {% block content %}
 
 <div class="hero">
-  <h1>Retail EDI Validation Portal</h1>
+<h1>EDI Gate</h1>
   <p class="hero-sub">
-    Upload your EDI file for instant Walmart spec validation,
-    XML transformation, and 997 FA generation.
+    Validate, transform, and route EDI files instantly —
+    before they reach your integration platform.
   </p>
 </div>
 
@@ -14,6 +14,8 @@
   <p class="card-sub">Supported transactions: 850 · 810 · 856 · 830</p>
 
   <form action="/process" method="POST" enctype="multipart/form-data">
+
+
     <div class="upload-area" id="uploadArea">
       <div class="upload-icon">📂</div>
       <p class="upload-text">Drag & drop or click to select</p>
@@ -28,9 +30,11 @@
       />
       <p class="file-selected" id="fileSelected"></p>
     </div>
+
     <button type="submit" class="btn btn-primary btn-full">
       Validate &amp; Process
     </button>
+
   </form>
 </div>
 
@@ -42,8 +46,8 @@
   </div>
   <div class="info-card">
     <div class="info-icon">✅</div>
-    <h3>Walmart Validation</h3>
-    <p>Validates all mandatory segments and field values against Walmart X12 EDI guidelines.</p>
+    <h3>X12 Validation</h3>
+    <p>Validates all mandatory segments and field values against X12 EDI 004010 standards.</p>
   </div>
   <div class="info-card">
     <div class="info-icon">📄</div>
@@ -58,9 +62,9 @@
 </div>
 
 <script>
-  const input    = document.getElementById("ediFile");
-  const label    = document.getElementById("fileSelected");
-  const area     = document.getElementById("uploadArea");
+  const input = document.getElementById("ediFile");
+  const label = document.getElementById("fileSelected");
+  const area  = document.getElementById("uploadArea");
 
   input.addEventListener("change", () => {
     if (input.files.length > 0) {
